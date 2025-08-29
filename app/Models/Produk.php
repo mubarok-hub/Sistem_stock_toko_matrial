@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
 {
-    protected $fillable = [
-    'nama_produk',
-    'kode_produk',
-    'kategori',
-    'satuan',
-    'stok',
-    'harga_beli',
-    'harga_jual',
-];
+        protected $table = 'produks';
+
+        protected $fillable = [
+        'nama_produk',
+        'kode_produk',
+        'kategori',
+        'satuan',
+        'stok',
+        'harga_beli',
+        'harga_jual',
+    ];
 }

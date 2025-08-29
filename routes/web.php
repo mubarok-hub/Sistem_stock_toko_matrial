@@ -1,16 +1,27 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProdukController;
-use App\Http\Controllers\KasirController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProdukController;
+use App\Http\Controllers\Admin\KasirController;
 
-Route::resource('produk', ProdukController::class);
-
-Route::get('/kasir', [KasirController::class, 'index'])->name('kasir.index');
-Route::post('/kasir', [KasirController::class, 'store'])->name('kasir.store');
-Route::get('/kasir/riwayat', [KasirController::class, 'riwayat'])->name('kasir.riwayat');
-Route::get('/kasir/struk/{id}', [KasirController::class, 'struk'])->name('kasir.struk');
-
+// Redirect root ke login
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
+
+// Group route khusus admin
+Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Produk
+    Route::resource('/produk', ProdukController::class);
+    Route::get('/produk/create', [ProdukController::class, 'create'])->name('admin.produk.create');
+    Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('admin.produk.edit');
+
+    // Kasir
+    Route::resource('/kasir', KasirController::class);
+});
+
+
+require __DIR__.'/auth.php';

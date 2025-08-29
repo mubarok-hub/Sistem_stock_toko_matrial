@@ -25,7 +25,8 @@
 
             <div class="mb-3">
                 <label>Kode Produk</label>
-                <input type="text" name="kode_produk" value="{{ $produk->kode_produk }}" class="form-control" disabled>
+                <input type="text" name="kode_produk" value="{{ $produk->kode_produk }}" class="form-control" readonly>
+                <small class="text-muted">Kode produk tidak dapat diubah</small>
             </div>
 
             <div class="mb-3">
@@ -45,6 +46,11 @@
             <div class="mb-3">
                 <label>Satuan</label>
                 <input type="text" name="satuan" value="{{ $produk->satuan }}" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Stok</label>
+                <input type="number" name="stok" value="{{ $produk->stok }}" class="form-control" required>
             </div>
 
             <div class="mb-3">
