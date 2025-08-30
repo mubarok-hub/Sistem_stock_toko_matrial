@@ -22,11 +22,13 @@ class KasirController extends Controller
         return view('kasir.riwayat', compact('transaksis'));
     }
 
-    public function struk($id)
+    public function show($id)
     {
         $transaksi = Transaksi::with('detailTransaksi.produk')->findOrFail($id);
-        return view('kasir.struk', compact('transaksi'));
+        return view('kasir.transaksi.show', compact('transaksi'));
     }
+
+
 
     public function store(Request $request)
     {

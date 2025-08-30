@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
             $table->string('kode_transaksi')->unique();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->dateTime('tanggal');
             $table->integer('total_harga');
             $table->integer('total_bayar');
             $table->integer('bayar');
             $table->integer('kembalian');
-
             $table->timestamps();
         });
     }

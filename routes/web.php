@@ -3,25 +3,36 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProdukController;
-use App\Http\Controllers\Admin\KasirController;
+use App\Http\Controllers\Admin\AdminTransaksiController;
+use App\Http\Controllers\Kasir\ProdukController as KasirProdukController;
+use App\Http\Controllers\Kasir\TransaksiController as KasirTransaksiController;
 
 // Redirect root ke login
 Route::get('/', function () {
     return redirect('/login');
 });
 
-// Group route khusus admin
-Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+// ==================== ADMIN ====================
+Route::prefix('admin')->middleware(['auth', 'is_admin'])->name('admin.')->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Produk
-    Route::resource('/produk', ProdukController::class);
-    Route::get('/produk/create', [ProdukController::class, 'create'])->name('admin.produk.create');
-    Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('admin.produk.edit');
+    // Produk (CRUD)
+    Route::resource('produk', ProdukController::class);
 
-    // Kasir
-    Route::resource('/kasir', KasirController::class);
+    // Transaksi / Kasir untuk admin (lihat & hapus transaksi)
+    Route::resource('transaksi', AdminTransaksiController::class)->only(['index', 'show', 'destroy']);
 });
 
+// ==================== KASIR ====================
+Route::prefix('kasir')->middleware(['auth'])->name('kasir.')->group(function () {
+    // Produk (kasir bisa lihat daftar produk, tambah ke transaksi)
+    Route::resource('produk', KasirProdukController::class);
+
+    // Transaksi (buat transaksi, lihat detail, riwayat, cetak struk)
+    Route::resource('transaksi', KasirTransaksiController::class)->only(['index', 'store', 'show']);
+    Route::get('riwayat', [KasirTransaksiController::class, 'riwayat'])->name('riwayat');
+    Route::get('struk/{id}', [KasirTransaksiController::class, 'struk'])->name('struk');
+});
 
 require __DIR__.'/auth.php';
