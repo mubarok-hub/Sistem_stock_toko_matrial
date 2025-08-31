@@ -13,10 +13,10 @@ Route::get('/', function () {
 });
 
 // ==================== ADMIN ====================
-Route::prefix('admin')->middleware(['auth', 'is_admin'])->name('admin.')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
+    // Route::resource('/admin/produk', App\Http\Controllers\Admin\ProdukController::class);s
     // Produk (CRUD)
     Route::resource('produk', ProdukController::class);
 
@@ -25,7 +25,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->name('admin.')->group(
 });
 
 // ==================== KASIR ====================
-Route::prefix('kasir')->middleware(['auth'])->name('kasir.')->group(function () {
+Route::prefix('kasir')->middleware(['auth', 'isKasir'])->name('kasir.')->group(function () {
     // Produk (kasir bisa lihat daftar produk, tambah ke transaksi)
     Route::resource('produk', KasirProdukController::class);
 

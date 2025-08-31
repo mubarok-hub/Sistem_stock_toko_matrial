@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         // bawaan laravel
         'auth' => \App\Http\Middleware\Authenticate::class,
         // custom
-        'is_admin' => \App\Http\Middleware\IsAdmin::class,
+        'isAdmin' => \App\Http\Middleware\IsAdmin::class,
+        'isKasir' => \App\Http\Middleware\IsKasir::class,
     ];
 }
