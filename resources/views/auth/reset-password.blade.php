@@ -1,4 +1,10 @@
-<x-guest-layout>
+@extends('layouts.guest')
+
+@section('styles')
+    <!-- Custom styles for reset password page -->
+@endsection
+
+@section('content')
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 
@@ -36,4 +42,8 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+@endsection
+
+@section('scripts')
+    <!-- Custom scripts for reset password page -->
+@endsection

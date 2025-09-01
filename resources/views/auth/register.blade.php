@@ -1,4 +1,10 @@
-<x-guest-layout>
+@extends('layouts.guest')
+
+@section('styles')
+    <!-- Custom styles for register page -->
+@endsection
+
+@section('content')
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -49,4 +55,8 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+@endsection
+
+@section('scripts')
+    <!-- Custom scripts for register page -->
+@endsection

@@ -1,4 +1,10 @@
-<x-guest-layout>
+@extends('layouts.guest')
+
+@section('styles')
+    <!-- Custom styles for login page -->
+@endsection
+
+@section('content')
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     @if (session('error'))
@@ -50,4 +56,8 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+@endsection
+
+@section('scripts')
+    <!-- Custom scripts for login page -->
+@endsection

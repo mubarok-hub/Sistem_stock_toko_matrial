@@ -5,7 +5,7 @@
         <h2 class="mb-4">Stok Gudang</h2>
 
         <a href="{{ route('admin.produk.create') }}" class="btn btn-primary mb-3">+ Tambah Produk</a>
-        <a href="{{ route('admin.kasir.index') }}" class="btn btn-primary mb-3">Transaksi</a>
+        <a href="{{ route('admin.transaksi.index') }}" class="btn btn-primary mb-3">Transaksi</a>
 
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($produks as $produk)
+                @forelse ($produks as $produk)
                     <tr>
                         <td>{{ $produk->kode_produk }}</td>
                         <td>{{ $produk->nama_produk }}</td>
@@ -44,15 +44,15 @@
                             </form>
                         </td>
                     </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="text-center">Belum ada produk</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="mt-3">
-                {{ $produks->appends(['q' => request('q')])->links() }}
-            </div>
+                @empty
+                    <tr>
+                        <td colspan="8" class="text-center">Belum ada produk</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+        <div class="mt-3">
+            {{ $produks->appends(['q' => request('q')])->links() }}
         </div>
-    @endsection
+    </div>
+@endsection
